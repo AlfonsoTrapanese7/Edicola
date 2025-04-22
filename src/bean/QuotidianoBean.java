@@ -24,8 +24,6 @@ public class QuotidianoBean {
     }
 
 
-   
-
     public String getNome() {
         return this.nome;
     }

@@ -13,8 +13,8 @@ import java.util.List;
 
 public class QuotidianoDao {
    
-    private final String url = "jdbc:mysql://localhost:3306/edicola"; // Sostituisci con l'URL del tuo database
-    private final String user = "root"; // Sostituisci con il tuo username
+    private final String url = "jdbc:mysql://localhost:3306/edicola";
+    private final String user = "root";
     private final String password = "";
 
 
@@ -36,6 +36,9 @@ public class QuotidianoDao {
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, nuoveCopie);
             stmt.setString(2, nome);
+            if(stmt.executeUpdate() == 0){
+                System.out.println("Nome inserito non corretto riprova");
+            }
             return stmt.executeUpdate() > 0;
         }
     }
