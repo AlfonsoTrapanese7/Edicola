@@ -38,7 +38,7 @@ public class QuotidianoBean {
             while (!nomeInserito) {
                 System.out.println("Inserisci il nome della pubblicazione (min 3 caratteri)");
                 nomeTemp = readerText.nextLine();
-                nomeInserito = nome.length() >= 3;
+                nomeInserito = nomeTemp.length() >= 3;
                 if (nomeInserito){
                     this.nome = nomeTemp;
                 } else {
