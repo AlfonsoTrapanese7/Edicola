@@ -9,10 +9,25 @@ public class QuotidianoBean {
     private double aggio;
     private int cvendute = 0;
 
+
+    public QuotidianoBean() {
+    }
+
+
+    public QuotidianoBean(String nome, int cricevute, double prezzo, double aggio, int cvendute) {
+        this.nome = nome;
+        this.cricevute = cricevute;
+        this.prezzo = prezzo;
+        this.aggio = aggio;
+        this.cvendute = cvendute;
+    }
+
     public String getNome() {
         return this.nome;
     }
 
+
+    
     public void setNome(Scanner readerText) {
             boolean nomeInserito = false;
             String nomeTemp; 
@@ -117,6 +132,21 @@ public class QuotidianoBean {
             ", copie rese='" + getCopieRese() + "'" +
             ", guadagno pubblicazione='" + getCopieRese() + "'" +
             "}";
+    }
+    public void setCvendute(int cvendute) {
+        this.cvendute = cvendute;
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    public void setCricevute(int cricevute) {
+        this.cricevute = cricevute;
+    }
+    public void setPrezzo(double prezzo) {
+        this.prezzo = prezzo;
+    }
+    public void setAggio(double aggio) {
+        this.aggio = aggio;
     }
 
 }
