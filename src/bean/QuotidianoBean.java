@@ -3,6 +3,7 @@ package bean;
 import java.util.Scanner;
 
 public class QuotidianoBean {
+    private int id;
     private String nome;
     private int cricevute = 0;
     private double prezzo;
@@ -13,14 +14,17 @@ public class QuotidianoBean {
     public QuotidianoBean() {
     }
 
-
-    public QuotidianoBean(String nome, int cricevute, double prezzo, double aggio, int cvendute) {
+    public QuotidianoBean(int id, String nome, int cricevute, double prezzo, double aggio, int cvendute) {
+        this.id = id;
         this.nome = nome;
         this.cricevute = cricevute;
         this.prezzo = prezzo;
         this.aggio = aggio;
         this.cvendute = cvendute;
     }
+
+
+   
 
     public String getNome() {
         return this.nome;
@@ -147,6 +151,14 @@ public class QuotidianoBean {
     }
     public void setAggio(double aggio) {
         this.aggio = aggio;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
