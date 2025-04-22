@@ -13,8 +13,8 @@ import java.util.List;
 
 public class QuotidianoDao {
    
-    private final String url = "jdbc:mysql://localhost:3306/edicola";
-    private final String user = "root";
+    private final String url = "jdbc:mysql://localhost:3306/edicola"; // Sostituisci con l'URL del tuo database
+    private final String user = "root"; // Sostituisci con il tuo username
     private final String password = "";
 
 
