@@ -36,9 +36,6 @@ public class QuotidianoDao {
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, nuoveCopie);
             stmt.setString(2, nome);
-            if(stmt.executeUpdate() == 0){
-                System.out.println("Nome inserito non corretto riprova");
-            }
             return stmt.executeUpdate() > 0;
         }
     }
@@ -112,5 +109,14 @@ public class QuotidianoDao {
         q.setAggio(rs.getDouble("aggio"));
         q.setNome(rs.getString("nome")); 
         return q;
+    }
+
+    public boolean isNotEmpty() throws SQLException {
+        String sql = "SELECT * FROM quotidiani";
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery(sql);
+            return rs.next();
+        }
     }
 }

@@ -1,4 +1,5 @@
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import bean.QuotidianoBean;
@@ -12,12 +13,17 @@ public class QuotidianoMain {
 
         int scelta;
         int scelta2;
+        
         QuotidianoDao mioQuotidianoDao = new QuotidianoDao();
+        boolean quotidianoVuoto = true;
 
         QuotidianoBean quotidianoTemp = null;
 
-        boolean esciCiclo1;
-
+        boolean esciCiclo;
+        int numeroCopieTemp;
+        String nomeTemp;
+        double prezzoTemp;
+        double aggioTemp;
         System.out.println("--- Edicola ---");
         while(!exit) {
             System.out.println("Seleziona l'operazione da effettuare");
@@ -42,6 +48,7 @@ public class QuotidianoMain {
                     
                     break;
                 case 2:
+                    readerNumber.nextLine();
                     System.out.println("Seleziona l'operazione da effettuare");
                     System.out.println("1: Inserimento copie ricevute per nome");
                     System.out.println("2: Incremento copie vendute per nome");
@@ -51,32 +58,138 @@ public class QuotidianoMain {
                     scelta2 = readerNumber.nextInt();
                     switch (scelta2) {
                         case 1:
-                        esciCiclo1 = false;
-                        while (esciCiclo1) {
+                            try {
+                                quotidianoVuoto = !mioQuotidianoDao.isNotEmpty();
+                            } catch (SQLException e) {
+                                System.out.println("Errore durante l'interrogazione del DB");
+                            }
+                            if (quotidianoVuoto) {
+                                System.out.println("Nessun quotidiano trovato");
+                                break;
+                            }
+                        esciCiclo = false;
+                        while (!esciCiclo) {
                             
                             try {
-                            
-                            } catch (Exception e) {
-                            
+                                System.out.println("Inserisci il nome del quotidiano da aggiornare");
+                                nomeTemp = readerText.nextLine();
+                                System.out.println("Inserisci il numero di copie ricevuto da aggiornare");
+                                numeroCopieTemp = readerNumber.nextInt();
+                                esciCiclo = mioQuotidianoDao.inserisciCopieRicevute(nomeTemp, numeroCopieTemp);
+                                if (!esciCiclo) {
+                                    System.out.println("Nome errato oppure numero di copie non valido");
+                                } else {
+                                    System.out.println("Operazione eseguita correttamente");
+                                }
+                                
+                            } catch (SQLException e) {
+                                System.out.println("Errore durante l'interrogazione del DB");
+                            } catch (InputMismatchException e) {
+                                System.out.println("Numero di copie non valido");
+                                readerNumber.nextLine();
                             }
                         }
                         
                             
                             break;
                         case 2:
+                            try {
+                                quotidianoVuoto = !mioQuotidianoDao.isNotEmpty();
+                            } catch (SQLException e) {
+                                System.out.println("Errore durante l'interrogazione del DB");
+                            }
+                            if (quotidianoVuoto) {
+                                System.out.println("Nessun quotidiano trovato");
+                                break;
+                            }
+                            esciCiclo = false;
+                            while (!esciCiclo) {
+                            
+                                try {
+                                    System.out.println("Inserisci il nome del quotidiano da aggiornare");
+                                    nomeTemp = readerText.nextLine();
+                                    esciCiclo = mioQuotidianoDao.incrementaCopieVendute(nomeTemp);
+                                    if (!esciCiclo) {
+                                        System.out.println("Quotidiano non trovato oppure incremento non consentito");
+                                    } else {
+                                        System.out.println("Operazione eseguita correttamente");
+                                    }
+                                } catch (SQLException e) {
+                                    System.out.println("Errore durante l'interrogazione del DB");
+                                } 
+                            }
                            
                             break;
                         case 3:
+                            try {
+                                quotidianoVuoto = !mioQuotidianoDao.isNotEmpty();
+                            } catch (SQLException e) {
+                                System.out.println("Errore durante l'interrogazione del DB");
+                            }
+                            if (quotidianoVuoto) {
+                                System.out.println("Nessun quotidiano trovato");
+                                break;
+                            }
+                            esciCiclo = false;
+                            while (!esciCiclo) {
                             
+                                try {
+                                    System.out.println("Inserisci il nome del quotidiano da aggiornare");
+                                    nomeTemp = readerText.nextLine();
+                                    System.out.println("Inserisci il nuovo prezzo");
+                                    prezzoTemp = readerNumber.nextDouble();
+                                    esciCiclo = mioQuotidianoDao.modificaPrezzo(nomeTemp, prezzoTemp);
+                                    if (!esciCiclo) {
+                                        System.out.println("Quotidiano non trovato oppure modifica prezzo non consentita");
+                                    } else {
+                                        System.out.println("Operazione eseguita correttamente");
+                                    }
+                                } catch (SQLException e) {
+                                    System.out.println("Errore durante l'interrogazione del DB");
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Prezzo non valido");
+                                    readerNumber.nextLine();
+                                }
+                            }
                             break;
                         case 4:
+                            try {
+                                quotidianoVuoto = !mioQuotidianoDao.isNotEmpty();
+                            } catch (SQLException e) {
+                                System.out.println("Errore durante l'interrogazione del DB");
+                            }
+                            if (quotidianoVuoto) {
+                                System.out.println("Nessun quotidiano trovato");
+                                break;
+                            }
+                            esciCiclo = false;
+                            while (!esciCiclo) {
                             
+                                try {
+                                    System.out.println("Inserisci il nome del quotidiano da aggiornare");
+                                    nomeTemp = readerText.nextLine();
+                                    System.out.println("Inserisci il nuovo aggio");
+                                    aggioTemp = readerNumber.nextDouble();
+                                    esciCiclo = mioQuotidianoDao.modificaAggio(nomeTemp, aggioTemp);
+                                    if (!esciCiclo) {
+                                        System.out.println("Quotidiano non trovato oppure modifica aggio non consentita");
+                                    } else {
+                                        System.out.println("Operazione eseguita correttamente");
+                                    }
+                                } catch (SQLException e) {
+                                    System.out.println("Errore durante l'interrogazione del DB");
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Aggio non valido");
+                                    readerNumber.nextLine();
+                                }
+                            }
                             break;
                         case 5:
                             try {
                                 mioQuotidianoDao.resetGiornata();
+                                System.out.println("Operazione eseguita correttamente");
                             } catch (SQLException e) {
-                                System.out.println();
+                                System.out.println("Errore durante l'interrogazione del DB");
                             }
                             break;
                         default:
