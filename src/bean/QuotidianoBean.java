@@ -34,12 +34,23 @@ public class QuotidianoBean {
             boolean nomeInserito = false;
             String nomeTemp; 
             while (!nomeInserito) {
+                try{
                 System.out.println("Inserisci il nome della pubblicazione (min 3 caratteri)");
                 nomeTemp = readerText.nextLine();
-                nomeInserito = nomeTemp.length() >= 3;
-                if (nomeInserito){
+
+                if (nomeTemp.length() < 3) {
+                    throw new IllegalArgumentException("Il nome deve avere almeno 3 caratteri.");
+                }
+    
+                if (!nomeTemp.matches(".*[a-zA-Z].*")) {
+                    throw new IllegalArgumentException("Il nome deve contenere almeno una lettera.");
+                }
+
+                
                     this.nome = nomeTemp;
-                } else {
+                    nomeInserito = true;
+                } catch (IllegalArgumentException e) {
+                    e.getLocalizedMessage();
                     System.out.println("Nome inserito non valido");
                 }
             }
@@ -53,13 +64,24 @@ public class QuotidianoBean {
             boolean quantitaRicevuteInserito = false;
             int quantitaRicevuteTemp; 
             while (!quantitaRicevuteInserito) {
-                System.out.println("Inserisci la quantità di copie ricevute della pubblicazione");
-                quantitaRicevuteTemp = readerNumber.nextInt();
-                quantitaRicevuteInserito = quantitaRicevuteTemp > 0;
-                if (quantitaRicevuteInserito){
-                    this.cricevute = quantitaRicevuteTemp;
-                } else {
-                    System.out.println("Quantità inserita non valida");
+                try {
+                    System.out.println("Inserisci la quantità di copie ricevute della pubblicazione:");
+                    String input = readerNumber.nextLine();
+        
+                    // Prova a convertire in intero
+                    quantitaRicevuteTemp = Integer.parseInt(input);
+        
+                    // Controlla che sia > 0
+                    if (quantitaRicevuteTemp > 0) {
+                        this.cricevute = quantitaRicevuteTemp;
+                        quantitaRicevuteInserito = true;
+                        System.out.println("Quantità ricevute inserita correttamente: " + this.cricevute);
+                    } else {
+                        System.out.println("Errore: la quantità deve essere un numero maggiore di zero.");
+                    }
+        
+                } catch (NumberFormatException e) {
+                    System.out.println("Errore: inserisci un numero intero valido.");
                 }
             }
     }
@@ -72,16 +94,25 @@ public class QuotidianoBean {
             boolean prezzoInserito = false;
             double prezzoTemp;
             while (!prezzoInserito) {
-                System.out.println("Inserisci il prezzo della pubblicazione");
-                prezzoTemp = readerNumber.nextDouble();
-                prezzoInserito = prezzoTemp > 0;
-                if (prezzoInserito){
-                    this.prezzo = prezzoTemp;
-                } else {
-                    System.out.println("Prezzo inserito non valido");
+                try {
+                    System.out.println("Inserisci il prezzo della pubblicazione (numero positivo):");
+                    String input = readerNumber.nextLine();
+        
+                    prezzoTemp = Double.parseDouble(input);
+        
+                    if (prezzoTemp > 0) {
+                        this.prezzo = prezzoTemp;
+                        prezzoInserito = true;
+                        System.out.println("Prezzo inserito correttamente: " + this.prezzo);
+                    } else {
+                        System.out.println("Errore: il prezzo deve essere maggiore di zero.");
+                    }
+        
+                } catch (NumberFormatException e) {
+                    System.out.println("Errore: inserisci un numero valido (es. 12.50).");
                 }
             }
-    }
+        }
 
     public double getAggio() {
         return this.aggio;
@@ -91,16 +122,25 @@ public class QuotidianoBean {
             boolean aggioInserito = false;
             double aggioTemp;
             while (!aggioInserito) {
-                System.out.println("Inserisci l'aggio in percentuale della pubblicazione (valore compreso tra 5 e 20)");
-                aggioTemp = readerNumber.nextDouble();
-                aggioInserito = aggioTemp >= 5 && aggioTemp <= 20;
-                if (aggioInserito){
-                    this.aggio = aggioTemp;
-                } else {
-                    System.out.println("Aggio inserito non valido");
+                try {
+                    System.out.println("Inserisci l'aggio in percentuale della pubblicazione (valore compreso tra 5 e 20):");
+                    String input = readerNumber.nextLine();
+        
+                    aggioTemp = Double.parseDouble(input);
+        
+                    if (aggioTemp >= 5 && aggioTemp <= 20) {
+                        this.aggio = aggioTemp;
+                        aggioInserito = true;
+                        System.out.println("Aggio inserito correttamente: " + this.aggio + "%");
+                    } else {
+                        System.out.println("Errore: l'aggio deve essere compreso tra 5 e 20.");
+                    }
+        
+                } catch (NumberFormatException e) {
+                    System.out.println("Errore: inserisci un numero valido per l'aggio.");
                 }
             }
-    }
+        }
 
     public int getCvendute() {
         return this.cvendute;
