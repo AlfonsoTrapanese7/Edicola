@@ -15,7 +15,7 @@ public class QuotidianoDao {
    
     private final String url = "jdbc:mysql://localhost:3306/edicola"; // Sostituisci con l'URL del tuo database
     private final String user = "root"; // Sostituisci con il tuo username
-    private final String password = "Infognato8!!";
+    private final String password = "";
 
 
     public boolean aggiungiPubblicazione(QuotidianoBean q) throws SQLException {
