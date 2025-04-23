@@ -1,5 +1,6 @@
 import java.sql.SQLException;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import bean.QuotidianoBean;
@@ -24,6 +25,7 @@ public class QuotidianoMain {
         String nomeTemp;
         double prezzoTemp;
         double aggioTemp;
+        List<QuotidianoBean> listaTemp = null;
         System.out.println("--- Edicola ---");
         while(!exit) {
             System.out.println("Seleziona l'operazione da effettuare");
@@ -198,10 +200,41 @@ public class QuotidianoMain {
                     }
                     break;
                 case 3:
-                    
+                    try {
+                        listaTemp = mioQuotidianoDao.getRendiconto();
+                    } catch (SQLException e) {
+                        System.out.println("Errore durante l'interrogazione del DB");
+                    }
+                    for (QuotidianoBean quotidiano : listaTemp) {
+                        System.out.println(quotidiano);
+                    }
                     break;
                 case 4:
+                    try {
+                        quotidianoVuoto = !mioQuotidianoDao.isNotEmpty();
+                    } catch (SQLException e) {
+                        System.out.println("Errore durante l'interrogazione del DB");
+                    }
+                    if (quotidianoVuoto) {
+                        System.out.println("Nessun quotidiano trovato");
+                        break;
+                    }
+                    esciCiclo = false;
+                    while (!esciCiclo) {
                     
+                        try {
+                            System.out.println("Inserisci il nome del quotidiano da eliminare");
+                            nomeTemp = readerText.nextLine();
+                            esciCiclo = mioQuotidianoDao.eliminaPubblicazione(nomeTemp);
+                            if (!esciCiclo) {
+                                System.out.println("Quotidiano non trovato");
+                            } else {
+                                System.out.println("Operazione eseguita correttamente");
+                            }
+                        } catch (SQLException e) {
+                            System.out.println("Errore durante l'interrogazione del DB");
+                        } 
+                    }
                     break;
                 case 5:
                     System.out.println("Grazie per aver utilizzato il mio programma");
