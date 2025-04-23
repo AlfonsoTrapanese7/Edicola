@@ -42,7 +42,7 @@ public class QuotidianoBean {
                     throw new IllegalArgumentException("Il nome deve avere almeno 3 caratteri.");
                 }
     
-                if (!nomeTemp.matches(".*[a-zA-Z].*")) {
+                if (!nomeTemp.matches("^.*[A-Za-z].*$")) {
                     throw new IllegalArgumentException("Il nome deve contenere almeno una lettera.");
                 }
 
@@ -96,9 +96,7 @@ public class QuotidianoBean {
             while (!prezzoInserito) {
                 try {
                     System.out.println("Inserisci il prezzo della pubblicazione (numero positivo):");
-                    String input = readerNumber.nextLine();
-        
-                    prezzoTemp = Double.parseDouble(input);
+                    prezzoTemp = readerNumber.nextDouble();
         
                     if (prezzoTemp > 0) {
                         this.prezzo = prezzoTemp;
@@ -124,9 +122,7 @@ public class QuotidianoBean {
             while (!aggioInserito) {
                 try {
                     System.out.println("Inserisci l'aggio in percentuale della pubblicazione (valore compreso tra 5 e 20):");
-                    String input = readerNumber.nextLine();
-        
-                    aggioTemp = Double.parseDouble(input);
+                    aggioTemp = readerNumber.nextDouble();
         
                     if (aggioTemp >= 5 && aggioTemp <= 20) {
                         this.aggio = aggioTemp;
