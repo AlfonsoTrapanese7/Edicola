@@ -8,7 +8,8 @@
             "c:\\Users\\alfyv\\Desktop\\Lavoro\\Corso Generation Italy\\JDBC\\mysql-connector-j-9.3.0.jar"
         ],
         "exclude": [
-            "c:\\Users\\alfyv\\Desktop\\Lavoro\\Corso Generation Italy\\JDBC\\Esercitazione finale\\Esercizio JDBC + db + connector\\mysql-connector-j-8.0.32.jar"
+            "c:\\Users\\alfyv\\Desktop\\Lavoro\\Corso Generation Italy\\JDBC\\Esercitazione finale\\Esercizio JDBC + db + connector\\mysql-connector-j-8.0.32.jar",
+            "c:\\Users\\alfyv\\Desktop\\Lavoro\\Corso Generation Italy\\JDBC\\mysql-connector-j-9.3.0.jar"
         ]
     }
 
